@@ -1,15 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { Container } from './styles';
-import Input from '../Input';
-import Button from '../Button';
+import Login from "../../pages/Login";
 
-const MainPublic = () => <Container>
+import { Container } from "./styles";
 
-  <Input name="teste" label="Email" placeholder="Digite seu e-mail" />
-  <Input name="teste" label="Senha" placeholder="Sua senha secreta" />
-  <Button descricao="Entrar" />
-
-</Container>;
+const MainPublic = () => (
+  <Container>
+    <Login />{" "}
+  </Container>
+);
 
 export default MainPublic;
