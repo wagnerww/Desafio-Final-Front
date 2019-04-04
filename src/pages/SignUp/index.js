@@ -3,19 +3,18 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import AuthActions from "../../store/ducks/auth";
+import UsuarioActions from "../../store/ducks/usuario";
 
-import Mensagem from "../../Components/Mensagem";
-import Loading from "../../Components/Loading";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import logo from "../../assets/logo.svg";
 
 import { Container, Label } from "./styles";
 
-class Login extends Component {
+class SignUp extends Component {
   state = {
     data: {
+      usrnome: "",
       usremail: "",
       usrsenha: ""
     }
@@ -27,52 +26,45 @@ class Login extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { authRequest } = this.props;
-    const { usremail, usrpassword } = this.state.data;
-
-    authRequest(usremail, usrpassword);
+    const { userCreate } = this.props;
+    userCreate(this.state.data);
   };
 
   render() {
     const { handleSubmit, handleChange } = this;
-    const { loading, iserror } = this.props.auth;
     return (
       <Container>
-        {!!loading ? <Loading /> : null}
-        {!!iserror ? (
-          <Mensagem descricao={"Usuário ou senha inválido"} />
-        ) : null}
-
         <img src={logo} alt="" />
         <form onSubmit={handleSubmit}>
           <Input
+            name="usrnome"
+            label="Nome"
+            placeholder="Digite seu nome"
+            onChange={handleChange}
+          />
+          <Input
             name="usremail"
-            label="Email"
+            label="Nome"
             placeholder="Digite seu e-mail"
             onChange={handleChange}
           />
           <Input
-            name="usrpassword"
+            name="usrsenha"
             label="Senha"
             placeholder="Sua senha secreta"
             onChange={handleChange}
           />
-          <Button descricao="Entrar" type="submit" />
+          <Button descricao="Criar conta" type="submit" />
         </form>
-        <Label to={"/signup"}>criar conta grátis</Label>
+        <Label to={"/"}>Já tenho conta</Label>
       </Container>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(AuthActions, dispatch);
+  bindActionCreators(UsuarioActions, dispatch);
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(Login);
+)(SignUp);

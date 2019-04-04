@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from "react";
 import GlobalStyle from "./styles/global";
-import MainPrivate from "./Components/MainPrivate";
-import MainPublic from "./Components/MainPublic";
-
-
+import "./config/Reactotron";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Routes from "./routes";
+import { Provider } from "react-redux";
+import store from "./store";
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <Provider store={store}>
         <GlobalStyle />
-        <MainPublic />
-      </Fragment>
+        <Routes />
+      </Provider>
     );
   }
 }
