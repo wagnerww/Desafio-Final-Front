@@ -16,7 +16,6 @@ import Preferencias from "../pages/Preferences";
 import Profile from "../pages/Profile";
 
 // ---- PRIVATE ROUTES
-
 class Routes extends Component {
   render() {
     return (
@@ -25,9 +24,10 @@ class Routes extends Component {
           {/* PUBLIC ROUTES */}
           <Public exact path="/" component={Login} />
           <Public path="/signup" component={SignUp} />
-          <Public path="/preferencias" component={Preferencias} />
-          <Public path="/profile" component={Profile} />
+
           {/* PRIVATE ROUTES */}
+          <Private path="/preferencias" component={Preferencias} />
+          <Private path="/profile" component={Profile} />
         </Switch>
       </ConnectedRouter>
     );

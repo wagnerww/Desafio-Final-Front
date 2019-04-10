@@ -24,7 +24,7 @@ export function* userUpdate({ usuario }) {
 export function* userGet() {
   try {
     const { data } = yield call(api.get, "app/usuarios");
-    yield put(UserAction.success(data));
+    yield put(UserAction.userSuccess(data));
   } catch (error) {
     console.log("error", error);
   }
