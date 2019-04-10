@@ -12,10 +12,12 @@ import Public from "./public";
 //  ---- PUBLIC ROUTES
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
-import Preferencias from "../pages/Preferences";
-import Profile from "../pages/Profile";
 
 // ---- PRIVATE ROUTES
+import Profile from "../pages/Profile";
+import Preferencias from "../pages/Preferences";
+import Meetup from "../pages/Meetup";
+
 class Routes extends Component {
   render() {
     return (
@@ -28,6 +30,7 @@ class Routes extends Component {
           {/* PRIVATE ROUTES */}
           <Private path="/preferencias" component={Preferencias} />
           <Private path="/profile" component={Profile} />
+          <Private path="/newmeetup" component={Meetup} />
         </Switch>
       </ConnectedRouter>
     );
