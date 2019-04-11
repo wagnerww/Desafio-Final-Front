@@ -10,16 +10,20 @@ export const Label = styled.label`
   font-weight: bold;
 `;
 
-export const Campo = styled.input`
-  color: #807e85;
-  background: transparent;
-  border: none;
-  height: 40px;
-  font-size: 1.1em;
-  border: 1px dashed #fff;
-  padding: 15px;
+export const Box = styled.label`
+  display: flex;
+  border: 4px dashed #fff;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100px;
+`;
 
-  &::placeholder: {
-    color: #807e85;
-  }
+export const Campo = styled.input`
+  position: absolute;
+  opacity: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 `;

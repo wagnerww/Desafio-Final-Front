@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import PreferencesActions from "../../store/ducks/preferencias";
 import UsuarioActions from "../../store/ducks/usuario";
 
-import api from "../../services/api";
-
 import Loading from "../../Components/Loading";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -29,40 +27,32 @@ class Profile extends Component {
     const { preferencesRequest, userGet } = this.props;
     await userGet();
     await preferencesRequest();
-    /* const tecnologias = await api.get("app/tecnologias");
-    const usuario = await api.get("app/usuarios");*/
   }
 
   handleChange = async e => {
     const { name, value } = e.target;
-
-    await this.setState({
-      data: { ...this.state.data, [name]: value }
-    });
+    const { userHandleChange } = this.props;
+    await userHandleChange(name, value);
   };
 
   handleChangeTecnologinas = async e => {
     const { name } = e.target;
-    await this.setState({
-      data: {
-        ...this.state.data,
-        tecnologias: [...this.state.data.tecnologias, { id: name }]
-      }
-    });
-    console.log("meet_tec", this.state);
+    const { userHandleChangeTecnologias } = this.props;
+    userHandleChangeTecnologias(name);
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { userUpdate } = this.props;
-    console.log("pref", this.state);
-    userUpdate(this.state);
+    const { dataForm } = this.props.usuario;
+
+    userUpdate(dataForm);
   };
 
   render() {
     const { data } = this.props.preferencias;
-    const user = this.props.usuario.data;
-    const { usrnome, usrsenha } = user;
+    const user = this.props.usuario.dataForm;
+    const { usrnome, usrsenha, usrsenha_confirmacao } = user;
 
     const { handleSubmit, handleChange, handleChangeTecnologinas } = this;
 
@@ -89,6 +79,7 @@ class Profile extends Component {
             label="Confirmação da senha"
             placeholder="Sua senha secreta"
             onChange={handleChange}
+            value={usrsenha_confirmacao}
             type="password"
           />
 
@@ -96,12 +87,13 @@ class Profile extends Component {
           {data.map((pref, index) => {
             let checked = "";
 
-            user.Tecnologias.find(userTec => {
-              return userTec.id === pref.id
-                ? (checked = "checked")
-                : (checked = "");
-            });
-            console.log("check", checked);
+            !!user.Tecnologias.lenght > 0 &&
+              user.Tecnologias.find(userTec => {
+                return userTec.id === pref.id
+                  ? (checked = "checked")
+                  : (checked = "");
+              });
+
             return (
               <div key={index}>
                 <CheckBox

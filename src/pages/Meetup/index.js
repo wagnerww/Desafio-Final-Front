@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import PreferencesActions from "../../store/ducks/preferencias";
-import UsuarioActions from "../../store/ducks/usuario";
+import MeetupActions from "../../store/ducks/meetup";
 
 import Loading from "../../Components/Loading";
 import Button from "../../Components/Button";
@@ -21,7 +21,8 @@ class Meetup extends Component {
       meetdescricao: "",
       meetlocalizacao: "",
       tecnologias: []
-    }
+    },
+    file: ""
   };
 
   componentDidMount() {
@@ -38,6 +39,15 @@ class Meetup extends Component {
     console.log("meet", this.state);
   };
 
+  handleChangeFile = async e => {
+    const file = e.target.files[0];
+    console.log("file", file);
+    await this.setState({
+      file
+    });
+    console.log("meet", this.state);
+  };
+
   handleChangeTecnologinas = async e => {
     const { name } = e.target;
     await this.setState({
@@ -46,20 +56,24 @@ class Meetup extends Component {
         tecnologias: [...this.state.data.tecnologias, { id: name }]
       }
     });
-    console.log("meet_tec", this.state);
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { userUpdate } = this.props;
+    const { meetupInsert } = this.props;
     console.log("meetup", this.state);
-    userUpdate(this.state);
+    meetupInsert(this.state.data, this.state.file);
   };
 
   render() {
     const { data } = this.props.preferencias;
 
-    const { handleSubmit, handleChange, handleChangeTecnologinas } = this;
+    const {
+      handleSubmit,
+      handleChange,
+      handleChangeTecnologinas,
+      handleChangeFile
+    } = this;
 
     return (
       <Container>
@@ -78,7 +92,15 @@ class Meetup extends Component {
             onChange={handleChange}
           />
 
-          <Blob name="meetimagem" label="Imagem" onChange={handleChange} />
+          {!this.state.file ? (
+            <Blob
+              name="meetimagem"
+              label="Imagem"
+              onChange={handleChangeFile}
+            />
+          ) : (
+            <img src={URL.createObjectURL(this.state.file)} />
+          )}
 
           <Input
             name="meetlocalizacao"
@@ -110,7 +132,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...PreferencesActions, ...UsuarioActions }, dispatch);
+  bindActionCreators({ ...PreferencesActions, ...MeetupActions }, dispatch);
 
 export default connect(
   mapStateToProps,

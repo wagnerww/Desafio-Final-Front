@@ -17,6 +17,7 @@ import SignUp from "../pages/SignUp";
 import Profile from "../pages/Profile";
 import Preferencias from "../pages/Preferences";
 import Meetup from "../pages/Meetup";
+import MeetupDetails from "../pages/MeetupDetails";
 
 class Routes extends Component {
   render() {
@@ -31,6 +32,7 @@ class Routes extends Component {
           <Private path="/preferencias" component={Preferencias} />
           <Private path="/profile" component={Profile} />
           <Private path="/newmeetup" component={Meetup} />
+          <Private path="/meetupDetail" component={MeetupDetails} />
         </Switch>
       </ConnectedRouter>
     );
