@@ -7,7 +7,8 @@ const { Types, Creators } = createActions({
   meetupRequest: ["id"],
   meetupInsert: ["data", "file"],
   meetupSuccess: ["data"],
-  meetupInscricao: ["id"]
+  meetupInscricao: ["id"],
+  meetupError: ["error"]
 });
 
 export const MeetupTypes = Types;
@@ -18,16 +19,21 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
   data: [],
   succcess: false,
-  loading: false
+  isloading: false,
+  iserror: false,
+  msgError: ""
 });
 
 /* Reducers */
 
-export const insert = state => state.merge({ loading: true });
-export const request = state => state.merge({ loading: true });
-export const inscricao = state => state.merge({ loading: true });
+export const insert = state => state.merge({ isloading: true, iserror: false });
+export const request = state =>
+  state.merge({ isloading: true, iserror: false });
+export const inscricao = state => state.merge({ isloading: true });
 export const success = (state, { data }) =>
-  state.merge({ loading: false, data });
+  state.merge({ isloading: false, data, iserror: false });
+export const error = (state, { error }) =>
+  state.merge({ isloading: false, iserror: true, msgError: error });
 
 /* Reducers to types */
 
@@ -35,5 +41,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.MEETUP_INSERT]: insert,
   [Types.MEETUP_REQUEST]: request,
   [Types.MEETUP_SUCCESS]: success,
-  [Types.MEETUP_INSCRICAO]: inscricao
+  [Types.MEETUP_INSCRICAO]: inscricao,
+  [Types.MEETUP_ERROR]: error
 });

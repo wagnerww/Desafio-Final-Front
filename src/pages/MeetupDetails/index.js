@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Container, Banner, Formulario, Titulo, User } from "./styles";
+import {
+  Container,
+  ContainerDetails,
+  Banner,
+  Titulo,
+  Descricao,
+  Small
+} from "./styles";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -7,37 +14,41 @@ import { connect } from "react-redux";
 import MeetupActions from "../../store/ducks/meetup";
 
 import Loading from "../../Components/Loading";
-import Input from "../../Components/Input";
 import Button from "../../Components/Button";
-import CheckBox from "../../Components/Checkbox";
 
 class MeetupDetails extends Component {
   async componentDidMount() {
+    const { id } = this.props.match.params;
     const { meetupRequest } = this.props;
-    await meetupRequest(28);
+    await meetupRequest(id);
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e, id) => {
     e.preventDefault();
     const { meetupInscricao } = this.props;
-
-    meetupInscricao(28);
+    meetupInscricao(id);
   };
 
   render() {
     const { data } = this.props.meetup;
-    console.log("dataform", data);
+
     const { handleSubmit } = this;
 
     return (
       <Container>
         <Banner src={`http://localhost:3001/files/${data.meetimagem}`} />
-        <Titulo>{data.meettitulo}</Titulo>
-        <small>{`${data.meetqtdinscritos} inscritos`}</small>
-        <p>{data.meetdescricao}</p>
-        <small>Realizado em:</small>
-        <p>{data.meetlocalizacao}</p>
-        <Button descricao="Inscrever-se" type="submit" onClick={handleSubmit} />
+        <ContainerDetails>
+          <Titulo>{data.meettitulo}</Titulo>
+          <Small>{`${data.meetqtdinscritos} membros`}</Small>
+          <Descricao>{data.meetdescricao}</Descricao>
+          <Small>Realizado em:</Small>
+          <Descricao>{data.meetlocalizacao}</Descricao>
+        </ContainerDetails>
+        <Button
+          descricao="Inscrever-se"
+          type="submit"
+          onClick={e => handleSubmit(e, data.id)}
+        />
       </Container>
     );
   }

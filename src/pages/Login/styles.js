@@ -11,4 +11,5 @@ export const Container = styled.div`
 
 export const Label = styled(Link)`
   color: #807e85;
+  text-decoration: none;
 `;

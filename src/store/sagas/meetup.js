@@ -25,7 +25,10 @@ export function* meetupInsert({ data, file }) {
       config
     );
   } catch (error) {
-    console.log("erro", error);
+    const { data } = error.response;
+    const mensagem = data.error;
+
+    yield put(MeetupAction.meetupError(mensagem));
   }
 }
 

@@ -7,7 +7,9 @@ import UsuarioActions from "../../store/ducks/usuario";
 
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import Loading from "../../Components/Loading";
 import logo from "../../assets/logo.svg";
+import Mensagem from "../../Components/Mensagem";
 
 import { Container, Label } from "./styles";
 
@@ -32,8 +34,11 @@ class SignUp extends Component {
 
   render() {
     const { handleSubmit, handleChange } = this;
+    const { isloading, iserror, msgError } = this.props.usuario;
     return (
       <Container>
+        {!!isloading ? <Loading /> : null}
+        {!!iserror ? <Mensagem descricao={msgError} /> : null}
         <img src={logo} alt="" />
         <form onSubmit={handleSubmit}>
           <Input
@@ -44,7 +49,7 @@ class SignUp extends Component {
           />
           <Input
             name="usremail"
-            label="Nome"
+            label="Email"
             placeholder="Digite seu e-mail"
             onChange={handleChange}
           />
@@ -61,10 +66,15 @@ class SignUp extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  usuario: state.usuario
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(UsuarioActions, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignUp);

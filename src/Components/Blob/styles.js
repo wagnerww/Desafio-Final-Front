@@ -12,11 +12,12 @@ export const Label = styled.label`
 
 export const Box = styled.label`
   display: flex;
-  border: 4px dashed #fff;
+  border: 4px dashed #ffffff;
   justify-content: center;
   align-items: center;
   position: relative;
   height: 100px;
+  margin-top: 10px;
 `;
 
 export const Campo = styled.input`

@@ -9,4 +9,6 @@ export const Main = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  margin-left: 265px;
+  margin-right: 265px;
 `;

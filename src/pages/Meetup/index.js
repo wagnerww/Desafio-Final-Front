@@ -1,5 +1,12 @@
-import React, { Component } from "react";
-import { Container, Titulo, Formulario, Descricao, User } from "./styles";
+import React, { Component, Fragment } from "react";
+import {
+  Container,
+  Titulo,
+  Formulario,
+  Descricao,
+  User,
+  Preferencias
+} from "./styles";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -13,6 +20,7 @@ import CheckBox from "../../Components/Checkbox";
 import Input from "../../Components/Input";
 import TextArea from "../../Components/TextArea";
 import Blob from "../../Components/Blob";
+import Mensagem from "../../Components/Mensagem";
 
 class Meetup extends Component {
   state = {
@@ -67,7 +75,7 @@ class Meetup extends Component {
 
   render() {
     const { data } = this.props.preferencias;
-
+    const { isloading, iserror, msgError } = this.props.meetup;
     const {
       handleSubmit,
       handleChange,
@@ -76,59 +84,64 @@ class Meetup extends Component {
     } = this;
 
     return (
-      <Container>
-        <Formulario onSubmit={handleSubmit}>
-          <Input
-            name="meettitulo"
-            label="Título"
-            placeholder="Digite o título do meetup"
-            onChange={handleChange}
-          />
-
-          <TextArea
-            name="meetdescricao"
-            label="Descrição"
-            placeholder="Descrição do meetup"
-            onChange={handleChange}
-          />
-
-          {!this.state.file ? (
-            <Blob
-              name="meetimagem"
-              label="Imagem"
-              onChange={handleChangeFile}
+      <Fragment>
+        {!!isloading ? <Loading /> : null}
+        {!!iserror ? <Mensagem descricao={msgError} /> : null}
+        <Container>
+          <Formulario onSubmit={handleSubmit}>
+            <Input
+              name="meettitulo"
+              label="Título"
+              placeholder="Digite o título do meetup"
+              onChange={handleChange}
             />
-          ) : (
-            <img src={URL.createObjectURL(this.state.file)} />
-          )}
 
-          <Input
-            name="meetlocalizacao"
-            label="Localização"
-            placeholder="Onde seu meetup irá acontecer?"
-            onChange={handleChange}
-          />
+            <TextArea
+              name="meetdescricao"
+              label="Descrição"
+              placeholder="Descrição do meetup"
+              onChange={handleChange}
+            />
 
-          <Titulo>Tema do meetup</Titulo>
-          {data.map((pref, index) => (
-            <div key={index}>
-              <CheckBox
-                descricao={pref.tecdescricao}
-                name={pref.id}
-                id={pref.id}
-                onChange={handleChangeTecnologinas}
+            {!this.state.file ? (
+              <Blob
+                name="meetimagem"
+                label="Imagem"
+                onChange={handleChangeFile}
               />
-            </div>
-          ))}
-          <Button descricao="Salvar" type="submit" />
-        </Formulario>
-      </Container>
+            ) : (
+              <img src={URL.createObjectURL(this.state.file)} />
+            )}
+
+            <Input
+              name="meetlocalizacao"
+              label="Localização"
+              placeholder="Onde seu meetup irá acontecer?"
+              onChange={handleChange}
+            />
+
+            <Titulo>Tema do meetup</Titulo>
+            {data.map((pref, index) => (
+              <Preferencias key={index}>
+                <CheckBox
+                  descricao={pref.tecdescricao}
+                  name={pref.id}
+                  id={pref.id}
+                  onChange={handleChangeTecnologinas}
+                />
+              </Preferencias>
+            ))}
+            <Button descricao="Salvar" type="submit" />
+          </Formulario>
+        </Container>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  preferencias: state.preferencias
+  preferencias: state.preferencias,
+  meetup: state.meetup
 });
 
 const mapDispatchToProps = dispatch =>

@@ -18,6 +18,7 @@ import Profile from "../pages/Profile";
 import Preferencias from "../pages/Preferences";
 import Meetup from "../pages/Meetup";
 import MeetupDetails from "../pages/MeetupDetails";
+import Dashboard from "../pages/Dashboard";
 
 class Routes extends Component {
   render() {
@@ -25,14 +26,16 @@ class Routes extends Component {
       <ConnectedRouter history={history}>
         <Switch>
           {/* PUBLIC ROUTES */}
-          <Public exact path="/" component={Login} />
+          <Public path="/signin" component={Login} />
           <Public path="/signup" component={SignUp} />
 
           {/* PRIVATE ROUTES */}
+          <Private exact path="/" component={Dashboard} />
           <Private path="/preferencias" component={Preferencias} />
           <Private path="/profile" component={Profile} />
           <Private path="/newmeetup" component={Meetup} />
-          <Private path="/meetupDetail" component={MeetupDetails} />
+          <Private path="/meetupDetail/:id" component={MeetupDetails} />
+          <Private path="/dashboard" component={Dashboard} />
         </Switch>
       </ConnectedRouter>
     );

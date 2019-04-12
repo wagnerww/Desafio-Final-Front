@@ -5,6 +5,10 @@ export const Container = styled.div`
   display: flex;
 `;
 
+export const Preferencias = styled.div`
+  margin-top: 20px;
+`;
+
 export const Formulario = styled.form``;
 
 export const Titulo = styled.strong`

@@ -16,6 +16,10 @@ import { preferencesRequest } from "./preferencias";
 import { MeetupTypes } from "../ducks/meetup";
 import { meetupInsert, requestMeetup, inscricaoMeetup } from "./meetup";
 
+// ---- DASHBOARD
+import { DashboardTypes } from "../ducks/dashboard";
+import { requestDashboard } from "./dashboard";
+
 export default function* rootSaga() {
   return yield all([
     takeLatest(AuthTypes.AUTH_REQUEST, authRequest),
@@ -28,6 +32,8 @@ export default function* rootSaga() {
 
     takeLatest(MeetupTypes.MEETUP_INSERT, meetupInsert),
     takeLatest(MeetupTypes.MEETUP_REQUEST, requestMeetup),
-    takeLatest(MeetupTypes.MEETUP_INSCRICAO, inscricaoMeetup)
+    takeLatest(MeetupTypes.MEETUP_INSCRICAO, inscricaoMeetup),
+
+    takeLatest(DashboardTypes.REQUEST_DASHBOARD, requestDashboard)
   ]);
 }

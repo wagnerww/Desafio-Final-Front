@@ -9,7 +9,10 @@ export function* userCreate({ usuario }) {
     const response = yield call(api.post, "usuarios", usuario);
     yield put(push("/"));
   } catch (error) {
-    console.log("error", error);
+    const { data } = error.response;
+    const mensagem = data.error;
+
+    yield put(UserAction.userError(mensagem));
   }
 }
 
@@ -17,7 +20,7 @@ export function* userUpdate({ usuario }) {
   try {
     const response = yield call(api.put, "app/usuarios", usuario);
   } catch (error) {
-    console.log("error", error);
+    console.log("error", error.response);
   }
 }
 

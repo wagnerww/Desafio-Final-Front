@@ -19,7 +19,7 @@ class PrivateRoutes extends Component {
             </MainPrivate>
           ) : (
             <Redirect
-              to={{ pathname: "/login", state: { from: props.location } }}
+              to={{ pathname: "/signin", state: { from: props.location } }}
             />
           )
         }

@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 50px;
+  top: 20px;
 `;
 
 export const Mesage = styled.p``;

@@ -1,14 +1,29 @@
 import React from "react";
 
-import { Container, Menu } from "./styles";
+import Icon from "../../assets/logo-white.svg";
 
-const Header = () => <Container>
-  <Menu>
-    <ul>M</ul>
-    <ul>Início</ul>
-    <ul>Buscar</ul>
-    <ul>Novo meetup</ul>
-  </Menu>
-</Container>;
+import { Container, Menu, StyledLink } from "./styles";
+
+const Header = () => (
+  <Container>
+    <Menu>
+      <ul>
+        <img src={Icon} />
+      </ul>
+      <ul>
+        <StyledLink to={"/dashboard"}>Início</StyledLink>
+      </ul>
+      <ul>
+        <StyledLink to={"/dashboard"}>Buscar</StyledLink>
+      </ul>
+      <ul>
+        <StyledLink to={"/newmeetup"}>Novo meetup</StyledLink>
+      </ul>
+    </Menu>
+    <StyledLink to="/profile">
+      <i class="far fa-user" />
+    </StyledLink>
+  </Container>
+);
 
 export default Header;

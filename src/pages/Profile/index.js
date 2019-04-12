@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Titulo, Formulario, Descricao, User } from "./styles";
+import { Container, Titulo, Formulario, Preferencias } from "./styles";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -95,7 +95,7 @@ class Profile extends Component {
               });
 
             return (
-              <div key={index}>
+              <Preferencias key={index}>
                 <CheckBox
                   descricao={pref.tecdescricao}
                   name={pref.id}
@@ -103,7 +103,7 @@ class Profile extends Component {
                   onChange={handleChangeTecnologinas}
                   defaultChecked={checked}
                 />
-              </div>
+              </Preferencias>
             );
           })}
           <Button descricao="Salvar" type="submit" />
