@@ -14,14 +14,14 @@ const Header = () => (
         <StyledLink to={"/dashboard"}>Início</StyledLink>
       </ul>
       <ul>
-        <StyledLink to={"/dashboard"}>Buscar</StyledLink>
+        <StyledLink to={"/search"}>Buscar</StyledLink>
       </ul>
       <ul>
         <StyledLink to={"/newmeetup"}>Novo meetup</StyledLink>
       </ul>
     </Menu>
     <StyledLink to="/profile">
-      <i class="far fa-user" />
+      <i className="far fa-user" />
     </StyledLink>
   </Container>
 );

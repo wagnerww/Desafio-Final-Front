@@ -28,6 +28,22 @@ export function* userUpdate({ usuario }) {
   }
 }
 
+export function* userPreferencias({ preferencias }) {
+  try {
+    const response = yield call(
+      api.put,
+      "app/usuarios/preferencias",
+      preferencias
+    );
+    yield put(push("/"));
+  } catch (error) {
+    const { data } = error.response;
+    const mensagem = data.error;
+
+    yield put(UserAction.userError(mensagem));
+  }
+}
+
 export function* userGet() {
   try {
     const { data } = yield call(api.get, "app/usuarios");

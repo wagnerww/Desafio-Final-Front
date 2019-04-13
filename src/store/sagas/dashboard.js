@@ -11,3 +11,15 @@ export function* requestDashboard() {
     console.log("erro", error);
   }
 }
+
+export function* searchDashboard({ titulo }) {
+  try {
+    const params = {
+      titulo
+    };
+    const { data } = yield call(api.get, "app/dashboard", { params });
+    yield put(DashboardActions.successDashboard(data));
+  } catch (error) {
+    console.log("erro", error);
+  }
+}

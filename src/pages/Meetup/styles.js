@@ -10,4 +10,9 @@ export const Preferencias = styled.div`
 
 export const Formulario = styled.form``;
 
+export const Image = styled.img`
+  object-fit: cover;
+  height: 100px;
+`;
+
 export const Titulo = styled.span``;

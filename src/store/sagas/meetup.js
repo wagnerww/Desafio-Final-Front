@@ -15,7 +15,7 @@ export function* meetupInsert({ data, file }) {
         "content-type": "multipart/form-data"
       }
     };
-    console.log("file", file);
+
     dataImage.append("file", file, file.name);
 
     const responseImage = yield call(
@@ -24,6 +24,7 @@ export function* meetupInsert({ data, file }) {
       dataImage,
       config
     );
+    yield put(push("/dashboard"));
   } catch (error) {
     const { data } = error.response;
     const mensagem = data.error;
@@ -40,5 +41,5 @@ export function* requestMeetup({ id }) {
 
 export function* inscricaoMeetup({ id }) {
   const { data } = yield call(api.post, "app/inscricao", { id_meetups: id });
-  console.log("data", data);
+  yield put(push("/dashboard"));
 }

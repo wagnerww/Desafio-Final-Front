@@ -19,6 +19,7 @@ import Preferencias from "../pages/Preferences";
 import Meetup from "../pages/Meetup";
 import MeetupDetails from "../pages/MeetupDetails";
 import Dashboard from "../pages/Dashboard";
+import Search from "../pages/Search";
 
 class Routes extends Component {
   render() {
@@ -36,6 +37,7 @@ class Routes extends Component {
           <Private path="/newmeetup" component={Meetup} />
           <Private path="/meetupDetail/:id" component={MeetupDetails} />
           <Private path="/dashboard" component={Dashboard} />
+          <Private path="/search" component={Search} />
         </Switch>
       </ConnectedRouter>
     );

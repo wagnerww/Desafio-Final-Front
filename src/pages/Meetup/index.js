@@ -5,7 +5,8 @@ import {
   Formulario,
   Descricao,
   User,
-  Preferencias
+  Preferencias,
+  Image
 } from "./styles";
 
 import { bindActionCreators } from "redux";
@@ -110,7 +111,7 @@ class Meetup extends Component {
                 onChange={handleChangeFile}
               />
             ) : (
-              <img src={URL.createObjectURL(this.state.file)} />
+              <Image src={URL.createObjectURL(this.state.file)} />
             )}
 
             <Input

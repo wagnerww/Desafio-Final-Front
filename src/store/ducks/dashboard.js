@@ -5,7 +5,8 @@ import Immutable from "seamless-immutable";
 
 const { Types, Creators } = createActions({
   requestDashboard: [""],
-  successDashboard: ["data"]
+  successDashboard: ["data"],
+  searchDashboard: ["titulo"]
 });
 
 export const DashboardTypes = Types;
@@ -19,7 +20,7 @@ export const INITIAL_STATE = Immutable({
     proximos: [],
     recomendados: []
   },
-  isloading: true
+  isloading: false
 });
 
 /* Reducers */
@@ -32,5 +33,6 @@ export const successDashboard = (state, { data }) =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_DASHBOARD]: requestDashboard,
-  [Types.SUCCESS_DASHBOARD]: successDashboard
+  [Types.SUCCESS_DASHBOARD]: successDashboard,
+  [Types.SEARCH_DASHBOARD]: requestDashboard
 });

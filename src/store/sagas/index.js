@@ -6,7 +6,7 @@ import { authRequest } from "./auth";
 
 // ---- USUARIO
 import { UsuarioTypes } from "../ducks/usuario";
-import { userCreate, userUpdate, userGet } from "./usuario";
+import { userCreate, userUpdate, userGet, userPreferencias } from "./usuario";
 
 // ---- PREFERENCIAS
 import { PreferenciasTypes } from "../ducks/preferencias";
@@ -18,7 +18,7 @@ import { meetupInsert, requestMeetup, inscricaoMeetup } from "./meetup";
 
 // ---- DASHBOARD
 import { DashboardTypes } from "../ducks/dashboard";
-import { requestDashboard } from "./dashboard";
+import { requestDashboard, searchDashboard } from "./dashboard";
 
 export default function* rootSaga() {
   return yield all([
@@ -26,6 +26,7 @@ export default function* rootSaga() {
 
     takeLatest(UsuarioTypes.USER_CREATE, userCreate),
     takeLatest(UsuarioTypes.USER_UPDATE, userUpdate),
+    takeLatest(UsuarioTypes.USER_PREFERENCIAS, userPreferencias),
     takeLatest(UsuarioTypes.USER_GET, userGet),
 
     takeLatest(PreferenciasTypes.PREFERENCES_REQUEST, preferencesRequest),
@@ -34,6 +35,7 @@ export default function* rootSaga() {
     takeLatest(MeetupTypes.MEETUP_REQUEST, requestMeetup),
     takeLatest(MeetupTypes.MEETUP_INSCRICAO, inscricaoMeetup),
 
-    takeLatest(DashboardTypes.REQUEST_DASHBOARD, requestDashboard)
+    takeLatest(DashboardTypes.REQUEST_DASHBOARD, requestDashboard),
+    takeLatest(DashboardTypes.SEARCH_DASHBOARD, searchDashboard)
   ]);
 }

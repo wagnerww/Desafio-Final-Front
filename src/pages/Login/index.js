@@ -56,6 +56,7 @@ class Login extends Component {
             label="Senha"
             placeholder="Sua senha secreta"
             onChange={handleChange}
+            type="password"
           />
           <Button descricao="Entrar" type="submit" />
         </form>

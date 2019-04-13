@@ -7,7 +7,7 @@ const Input = ({ name, label, ...options }) => (
     <Label>{label}</Label>
     <Box>
       <Campo type="file" name={name} {...options} />
-      <i class="fas fa-camera fa-2x" />
+      <i className="fas fa-camera fa-2x" />
     </Box>
   </Container>
 );

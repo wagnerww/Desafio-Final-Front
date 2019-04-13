@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex: 0 1 30%;
   flex-direction: column;
-  width: 290px;
+  /*min-width: 100%;*/
   height: 175px;
   background: #fff;
   border-radius: 5px;

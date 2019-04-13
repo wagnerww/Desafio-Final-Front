@@ -17,4 +17,6 @@ export const User = styled.strong``;
 
 export const Descricao = styled.p`
   word-break: break-all;
+  color: #ffffff;
+  margin-bottom: 30px;
 `;

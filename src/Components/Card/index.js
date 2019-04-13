@@ -20,7 +20,7 @@ const Card = ({ img, titulo, incritos, id }) => (
       </Info>
       <StyledLink to={`/meetupDetail/${id}`}>
         <Inscricao>
-          <i class="fas fa-chevron-right" />
+          <i className="fas fa-chevron-right" />
         </Inscricao>
       </StyledLink>
     </BoxInfo>

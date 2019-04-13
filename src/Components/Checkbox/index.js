@@ -5,7 +5,7 @@ import { Container, Titulo, Box, Check } from "./styles";
 const Checkbox = ({ descricao, ...options }) => (
   <Container>
     <Check type="checkbox" {...options} />
-    <Box for={options.id} />
+    <Box htmlFor={options.id} />
     <Titulo>{descricao}</Titulo>
   </Container>
 );

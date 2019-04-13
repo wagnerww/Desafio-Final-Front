@@ -25,7 +25,7 @@ export const INITIAL_STATE = Immutable({
 /* Reducers */
 
 export const success = (state, { token, user }) =>
-  state.merge({ loading: false, iserror: false, isLogado: true });
+  state.merge({ loading: false, iserror: false, isLogado: true, token, user });
 
 export const request = state => state.merge({ loading: true, iserror: false });
 

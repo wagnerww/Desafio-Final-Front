@@ -58,6 +58,7 @@ class SignUp extends Component {
             label="Senha"
             placeholder="Sua senha secreta"
             onChange={handleChange}
+            type="password"
           />
           <Button descricao="Criar conta" type="submit" />
         </form>

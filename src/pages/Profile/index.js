@@ -26,8 +26,8 @@ class Profile extends Component {
 
   async componentDidMount() {
     const { preferencesRequest, userGet } = this.props;
-    await userGet();
-    await preferencesRequest();
+    userGet();
+    preferencesRequest();
   }
 
   handleChange = async e => {
@@ -52,6 +52,7 @@ class Profile extends Component {
 
   render() {
     const { data } = this.props.preferencias;
+    const isloadingPref = this.props.preferencias.isloading;
     const user = this.props.usuario.dataForm;
     const { usrnome, usrsenha, usrsenha_confirmacao } = user;
 
@@ -60,60 +61,65 @@ class Profile extends Component {
 
     return (
       <Fragment>
-        {!!isloading ? <Loading /> : null}
-        {!!iserror ? <Mensagem descricao={msgError} /> : null}
-        <Container>
-          <Formulario onSubmit={handleSubmit}>
-            <Input
-              name="usrnome"
-              label="Nome"
-              placeholder="Digite seu nome"
-              onChange={handleChange}
-              value={usrnome}
-            />
-            <Input
-              name="usrsenha"
-              label="Senha"
-              placeholder="Sua senha secreta"
-              onChange={handleChange}
-              type="password"
-              value={usrsenha}
-            />
-            <Input
-              name="usrsenha_confirmacao"
-              label="Confirmação da senha"
-              placeholder="Sua senha secreta"
-              onChange={handleChange}
-              value={usrsenha_confirmacao}
-              type="password"
-            />
+        {!!isloading || !!isloadingPref ? (
+          <Loading />
+        ) : (
+          <Fragment>
+            {!!iserror ? <Mensagem descricao={msgError} /> : null}
+            <Container>
+              <Formulario onSubmit={handleSubmit}>
+                <Input
+                  name="usrnome"
+                  label="Nome"
+                  placeholder="Digite seu nome"
+                  onChange={handleChange}
+                  value={usrnome}
+                />
+                <Input
+                  name="usrsenha"
+                  label="Senha"
+                  placeholder="Sua senha secreta"
+                  onChange={handleChange}
+                  type="password"
+                  value={usrsenha}
+                />
+                <Input
+                  name="usrsenha_confirmacao"
+                  label="Confirmação da senha"
+                  placeholder="Sua senha secreta"
+                  onChange={handleChange}
+                  value={usrsenha_confirmacao}
+                  type="password"
+                />
 
-            <Titulo>Preferências</Titulo>
-            {data.map((pref, index) => {
-              let checked = "";
+                <Titulo>Preferências</Titulo>
+                {data.map((pref, index) => {
+                  let checked = "";
 
-              !!user.Tecnologias.lenght > 0 &&
-                user.Tecnologias.find(userTec => {
-                  return userTec.id === pref.id
-                    ? (checked = "checked")
-                    : (checked = "");
-                });
+                  !!user.Tecnologias &&
+                    user.Tecnologias.find(userTec => {
+                      return userTec.id === pref.id
+                        ? (checked = "checked")
+                        : (checked = "");
+                    });
 
-              return (
-                <Preferencias key={index}>
-                  <CheckBox
-                    descricao={pref.tecdescricao}
-                    name={pref.id}
-                    id={pref.id}
-                    onChange={handleChangeTecnologinas}
-                    defaultChecked={checked}
-                  />
-                </Preferencias>
-              );
-            })}
-            <Button descricao="Salvar" type="submit" />
-          </Formulario>
-        </Container>
+                  return (
+                    <Preferencias key={index}>
+                      <CheckBox
+                        descricao={pref.tecdescricao}
+                        name={pref.id}
+                        id={pref.id}
+                        onChange={handleChangeTecnologinas}
+                        defaultChecked={checked}
+                      />
+                    </Preferencias>
+                  );
+                })}
+                <Button descricao="Salvar" type="submit" />
+              </Formulario>
+            </Container>
+          </Fragment>
+        )}
       </Fragment>
     );
   }

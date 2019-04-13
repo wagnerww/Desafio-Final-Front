@@ -14,7 +14,7 @@ export function* authRequest({ usremail, usrpassword }) {
 
     usrprimeiroacesso
       ? yield put(push("/preferencias"))
-      : console.tron.log("vai para a home acesso");
+      : yield put(push("/dashboard"));
   } catch (error) {
     yield put(AuthAction.authError());
   }

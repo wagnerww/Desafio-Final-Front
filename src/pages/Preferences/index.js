@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Container, Titulo, Formulario, Descricao, User } from "./styles";
 
 import { bindActionCreators } from "redux";
@@ -28,46 +28,49 @@ class Preferences extends Component {
     await this.setState({
       tecnologias: [...this.state.tecnologias, { id: name }]
     });
-
-    console.log("pref", this.state);
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { userUpdate } = this.props;
-    console.log("pref", this.state);
-    userUpdate(this.state);
+    const { userPreferencias } = this.props;
+
+    userPreferencias(this.state);
   };
 
   render() {
     const { data } = this.props.preferencias;
     const user = this.props.usuario.data;
+    const isloadingPref = this.props.preferencias.isloading;
+    const isloadingUser = this.props.preferencias.isloading;
 
     const { handleSubmit, handleChange } = this;
 
     return (
-      <Container>
-        <Formulario onSubmit={handleSubmit}>
-          <User>Olá, {user.usrnome}</User>
-          <Descricao>
-            Parece que é o seu primeiro acesso por aqui, comece escolhendo
-            algumas preferências para selecionarmos os melhores meetups pra
-            você:
-          </Descricao>
+      <Fragment>
+        {isloadingPref || isloadingUser ? <Loading /> : null}
+        <Container>
+          <Formulario onSubmit={handleSubmit}>
+            <User>Olá, {user.usrnome}</User>
+            <Descricao>
+              Parece que é o seu primeiro acesso por aqui, comece escolhendo
+              algumas preferências para selecionarmos os melhores meetups pra
+              você:
+            </Descricao>
 
-          <Titulo>Preferências</Titulo>
-          {data.map((pref, index) => (
-            <div key={index}>
-              <CheckBox
-                descricao={pref.tecdescricao}
-                name={pref.id}
-                id={pref.id}
-                onChange={handleChange}
-              />
-            </div>
-          ))}
-          <Button descricao="Continuar" type="submit" />
-        </Formulario>
-      </Container>
+            <Titulo>Preferências</Titulo>
+            {data.map((pref, index) => (
+              <div key={index}>
+                <CheckBox
+                  descricao={pref.tecdescricao}
+                  name={pref.id}
+                  id={pref.id}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
+            <Button descricao="Continuar" type="submit" />
+          </Formulario>
+        </Container>
+      </Fragment>
     );
   }
 }
