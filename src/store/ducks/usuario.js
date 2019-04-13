@@ -25,7 +25,7 @@ export const INITIAL_STATE = Immutable({
     usrnome: "",
     usrsenha: "",
     usrsenha_confirmacao: "",
-    Tecnologias: []
+    tecnologias: []
   },
   isloading: false,
   iserror: false,
@@ -44,7 +44,7 @@ export const success = (state, { data }) =>
     dataForm: {
       ...state.dataForm,
       usrnome: data.usrnome,
-      Tecnologias: data.Tecnologias
+      tecnologias: data.Tecnologias
     }
   });
 export const get = state => state.merge({ isloading: true, iserror: false });
@@ -54,7 +54,7 @@ export const handleChangeTecnologias = (state, { id }) =>
   state.merge({
     dataForm: {
       ...state.dataForm,
-      Tecnologias: [...state.dataForm.Tecnologias, { id }]
+      tecnologias: [...state.dataForm.tecnologias, { id }]
     }
   });
 export const error = (state, { error }) =>

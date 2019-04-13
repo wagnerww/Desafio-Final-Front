@@ -14,16 +14,6 @@ import CheckBox from "../../Components/Checkbox";
 import Mensagem from "../../Components/Mensagem";
 
 class Profile extends Component {
-  state = {
-    data: {
-      usrnome: "",
-      usrsenha: "",
-      usrsenhaconfirmacao: "",
-      tecnologias: []
-    },
-    tecnologias: []
-  };
-
   async componentDidMount() {
     const { preferencesRequest, userGet } = this.props;
     userGet();
@@ -44,10 +34,17 @@ class Profile extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { userUpdate } = this.props;
-    const { dataForm } = this.props.usuario;
 
-    userUpdate(dataForm);
+    const { usrsenha, usrsenha_confirmacao } = this.props.usuario.dataForm;
+
+    if (usrsenha_confirmacao === usrsenha) {
+      const { userUpdate } = this.props;
+      const { dataForm } = this.props.usuario;
+      userUpdate(dataForm);
+    } else {
+      const { userError } = this.props;
+      userError("As senhas devem ser iguais");
+    }
   };
 
   render() {
@@ -96,8 +93,8 @@ class Profile extends Component {
                 {data.map((pref, index) => {
                   let checked = "";
 
-                  !!user.Tecnologias &&
-                    user.Tecnologias.find(userTec => {
+                  !!user.tecnologias &&
+                    user.tecnologias.find(userTec => {
                       return userTec.id === pref.id
                         ? (checked = "checked")
                         : (checked = "");
